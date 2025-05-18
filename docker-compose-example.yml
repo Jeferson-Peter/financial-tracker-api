@@ -21,26 +21,6 @@ services:
       - ./financial-tracker-api:/app
     restart: always
 
-  frontend:
-    build:
-      context: ./financial-tracker-ui
-      dockerfile: Dockerfile
-    container_name: financial-tracker-ui
-    ports:
-      - "3000:3000"
-    env_file:
-      - ./financial-tracker-ui/.env
-    depends_on:
-      - backend
-    networks:
-      - app-network
-    volumes:
-      - ./financial-tracker-ui:/app:cached # Monta o diretório do código-fonte
-      - /app/node_modules                  # Evita conflitos de cache no node_modules
-      - /app/.next                         # Inclui a build do Next.js
-    restart: always
-
-
   postgres:
     image: postgres:13
     container_name: financial-tracker-postgres
