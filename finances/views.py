@@ -35,8 +35,9 @@ class AccountViewSet(ModelViewSet):
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
 
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['account_type', 'balance']
+    search_fields = ['account_type__name']
 
     def get_queryset(self):
         return Account.objects.filter(user=self.request.user)
